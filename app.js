@@ -1,23 +1,8 @@
 import * as THREE from './three.js/build/three.module.js'
-import * as OrbitalControls from './three.js/examples/js/controls/OrbitControls.js'
+import { FPS_Controller } from './components/FPS.js'
+import {Ground} from './components/ground.js'
 
 var scene, camera, renderer
-
-const Ground = () =>{
-    let object_geometry = new THREE.PlaneGeometry(100, 100)
-    let texture = new THREE.TextureLoader().load('./textures/grass.jpg')
-    texture.wrapT = THREE.RepeatWrapping
-    texture.wrapS = THREE.RepeatWrapping
-    texture.repeat.set(10, 10)
-    let material = new THREE.MeshBasicMaterial({
-        map : texture,
-        side : THREE.DoubleSide
-    })
-    let object = new THREE.Mesh(object_geometry, material)
-    object.receiveShadow = true
-    object.rotation.set(-Math.PI / 3, 0, 0)
-    return object
-}
 
 var doInit = () => {
     scene = new THREE.Scene()
@@ -37,9 +22,7 @@ var doInit = () => {
 
     document.body.appendChild(renderer.domElement)
 
-    let controller = new OrbitalControls.PointerLockControls(camera, renderer.domElement)
-    let clock = new THREE.Clock()
-    controller.lock()
+    FPS_Controller()
 
     scene.add(Ground())
 }
@@ -64,4 +47,4 @@ window.onresize = () => {
     camera.updateProjectionMatrix()
 }
 
-
+export {camera, renderer}
