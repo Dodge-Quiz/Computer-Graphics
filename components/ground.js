@@ -11,6 +11,6 @@ export const Ground = () =>{
     })
     let object = new THREE.Mesh(object_geometry, material)
     object.receiveShadow = true
-    object.rotation.set(-Math.PI / 3, 0, 0)
+    object.rotation.set(-Math.PI / 2, 0, 0)
     return object
 }
