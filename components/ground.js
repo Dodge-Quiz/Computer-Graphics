@@ -6,8 +6,9 @@ export const Ground = () =>{
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
     texture.repeat.set(10, 10)
-    let material = new THREE.MeshBasicMaterial({
-        map : texture
+    let material = new THREE.MeshPhongMaterial({
+        map : texture,
+        side : THREE.DoubleSide
     })
     let object = new THREE.Mesh(object_geometry, material)
     object.receiveShadow = true

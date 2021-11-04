@@ -1,11 +1,11 @@
 import * as THREE from './three.js/build/three.module.js'
-import { FPS_Controller } from './components/FPS.js'
+import {FPS_Controller, FPS_Movement, Player_Grounded, controller} from './components/FPS.js'
 import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 
 var scene, camera, renderer
 
-var isGrounded = false
+var deltaTime
 
 var doInit = () => {
     scene = new THREE.Scene()
@@ -16,12 +16,13 @@ var doInit = () => {
     const ASPECT =  WIDTH / HEIGHT
 
     camera = new THREE.PerspectiveCamera(FOV, ASPECT)  
-    camera.position.set(0, 1, 50)
+    camera.position.set(0, 7, 50)
     camera.lookAt(0, 0, 0)
     
     renderer = new THREE.WebGLRenderer({antialias: true})
     renderer.setSize(WIDTH, HEIGHT)
     renderer.setClearColor(0x87CEEB)
+    renderer.shadowMap.enabled = true
 
     document.body.appendChild(renderer.domElement)
 
@@ -31,24 +32,24 @@ var doInit = () => {
     brick_block.position.set(0, 2, 2)
     stone_block.position.set(-6, 2, 2)
 
+    let light = createDirectionalLight()
+
     scene.add(wood_block)
     scene.add(brick_block)
     scene.add(stone_block)
 
+    scene.add(light)
     scene.add(Ground())
+    scene.add(controller.getObject())
 }
 
 var doRender = () => {
+    Player_Grounded()
+
+    deltaTime = new THREE.Clock().getDelta()
+    FPS_Movement()
+
     requestAnimationFrame(doRender)
-    // if(wood_block.position.y > 2){
-    //     wood_block.position.y -= 1
-    //     isGrounded = false
-    //     console.log("Not Grounded")
-    // }
-    // else{
-    //     isGrounded = true
-    //     console.log("Grounded")
-    // }
     renderer.render(scene, camera)
 }
 
@@ -65,6 +66,13 @@ window.onresize = () => {
 
     camera.aspect = newW / newH
     camera.updateProjectionMatrix()
+}
+
+var createDirectionalLight = () =>{
+    let light = new THREE.DirectionalLight(0xFFFFFF, 1)
+    light.position.set(0, 100, 0)
+    light.castShadow = true
+    return light
 }
 
 export {camera, renderer}
