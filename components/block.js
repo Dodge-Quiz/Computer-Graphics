@@ -8,37 +8,43 @@ const block_depth = block_size[2]
 
 var wood = () =>{
     let object_geometry = new THREE.BoxGeometry(block_size_widht, block_size_height, block_depth)
-    let texture = new THREE.TextureLoader().load('../textures/wood_block.png')
+    let texture = new THREE.TextureLoader().load('./textures/wood_block.png')
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
     let material = new THREE.MeshBasicMaterial({
         map : texture
     })
     let object = new THREE.Mesh(object_geometry, material)
+    object.castShadow = true
+    object.receiveShadow = true
     return object
 }
 
 var stone = () =>{
     let object_geometry = new THREE.BoxGeometry(block_size_widht, block_size_height, block_depth)
-    let texture = new THREE.TextureLoader().load('../textures/stone_block.jpg')
+    let texture = new THREE.TextureLoader().load('./textures/stone_block.jpg')
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
     let material = new THREE.MeshBasicMaterial({
         map : texture
     })
     let object = new THREE.Mesh(object_geometry, material)
+    object.castShadow = true
+    object.receiveShadow = true
     return object
 }
 
 var brick = () =>{
     let object_geometry = new THREE.BoxGeometry(block_size_widht, block_size_height, block_depth)
-    let texture = new THREE.TextureLoader().load('../textures/brick_block.png')
+    let texture = new THREE.TextureLoader().load('./textures/brick_block.png')
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
     let material = new THREE.MeshBasicMaterial({
         map : texture
     })
     let object = new THREE.Mesh(object_geometry, material)
+    object.castShadow = true
+    object.receiveShadow = true
     return object
 }
 
