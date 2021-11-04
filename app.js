@@ -21,7 +21,7 @@ var doInit = () => {
     
     renderer = new THREE.WebGLRenderer({antialias: true})
     renderer.setSize(WIDTH, HEIGHT)
-    renderer.setClearColor(0xFFFFFF)
+    renderer.setClearColor(0x87CEEB)
 
     document.body.appendChild(renderer.domElement)
 
