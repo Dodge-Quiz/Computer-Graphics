@@ -10,11 +10,11 @@ var isGrounded
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
 
-let moveForward = false;
-let moveBackward = false;
-let moveLeft = false;
-let moveRight = false;
-let prevTime = performance.now();
+let moveForward = false
+let moveBackward = false
+let moveLeft = false
+let moveRight = false
+let prevTime = performance.now()
 let mass = 50
 
 const FPS_Controller = () =>{

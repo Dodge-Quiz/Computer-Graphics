@@ -2,6 +2,7 @@ import * as THREE from './three.js/build/three.module.js'
 import {FPS_Controller, FPS_Movement, Player_Grounded, controller} from './components/FPS.js'
 import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
+import { download_model } from './components/exporter.js'
 
 var scene, camera, renderer
 
@@ -18,6 +19,8 @@ var doInit = () => {
     camera = new THREE.PerspectiveCamera(FOV, ASPECT)  
     camera.position.set(0, 7, 50)
     camera.lookAt(0, 0, 0)
+
+    export_scene()
     
     renderer = new THREE.WebGLRenderer({antialias: true})
     renderer.setSize(WIDTH, HEIGHT)
@@ -75,4 +78,9 @@ var createDirectionalLight = () =>{
     return light
 }
 
-export {camera, renderer}
+const export_scene = () => {
+    const export_btn = document.getElementById('export_btn')
+    export_btn.addEventListener('click', download_model)
+}
+
+export {camera, renderer, scene}
