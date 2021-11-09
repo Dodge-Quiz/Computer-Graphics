@@ -3,6 +3,7 @@ import {FPS_Controller, FPS_Movement, Player_Grounded, controller} from './compo
 import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 import { download_model } from './components/exporter.js'
+import { check_raycast, reset_material } from './components/raycaster.js'
 
 var scene, camera, renderer
 
@@ -31,9 +32,9 @@ var doInit = () => {
 
     FPS_Controller()
 
-    wood_block.position.set(6, 2, 2)
-    brick_block.position.set(0, 2, 2)
-    stone_block.position.set(-6, 2, 2)
+    wood_block.position.set(6, 2.5, 2)
+    brick_block.position.set(0, 2.5, 2)
+    stone_block.position.set(-6, 2.5, 2)
 
     let light = createDirectionalLight()
 
@@ -51,6 +52,8 @@ var doRender = () => {
 
     deltaTime = new THREE.Clock().getDelta()
     FPS_Movement()
+    reset_material()
+    check_raycast()
 
     requestAnimationFrame(doRender)
     renderer.render(scene, camera)
