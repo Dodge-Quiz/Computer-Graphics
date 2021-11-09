@@ -80,6 +80,7 @@ var createDirectionalLight = () =>{
 
 const export_scene = () => {
     const export_btn = document.getElementById('export_btn')
+    export_btn.style.display = 'none'
     export_btn.addEventListener('click', download_model)
 }
 
