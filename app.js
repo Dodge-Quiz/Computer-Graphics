@@ -1,5 +1,5 @@
 import * as THREE from './three.js/build/three.module.js'
-import {FPS_Controller, FPS_Movement, Player_Grounded, controller} from './components/FPS.js'
+import {FPS_Controller, FPS_Movement, controller} from './components/FPS.js'
 import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 import { download_model } from './components/exporter.js'
@@ -48,7 +48,7 @@ var doInit = () => {
 }
 
 var doRender = () => {
-    Player_Grounded()
+    //Player_Grounded()
 
     deltaTime = new THREE.Clock().getDelta()
     FPS_Movement()

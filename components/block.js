@@ -2,9 +2,9 @@ import * as THREE from '../three.js/build/three.module.js'
 
 const block_size = new Array(5, 5, 5)
 
-const block_size_height = block_size[0]
-const block_size_widht = block_size[1]
-const block_depth = block_size[2]
+export const block_size_height = block_size[0]
+export const block_size_widht = block_size[1]
+export const block_depth = block_size[2]
 
 var wood = () =>{
     let object_geometry = new THREE.BoxGeometry(block_size_widht, block_size_height, block_depth)
