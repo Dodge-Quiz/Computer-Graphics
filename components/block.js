@@ -11,7 +11,7 @@ var wood = () =>{
     let texture = new THREE.TextureLoader().load('./textures/wood_block.png')
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
-    let material = new THREE.MeshPhongMaterial({
+    let material = new THREE.MeshBasicMaterial({
         map : texture,
         color : 0xFFFFFF
     })
@@ -26,7 +26,7 @@ var stone = () =>{
     let texture = new THREE.TextureLoader().load('./textures/stone_block.jpg')
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
-    let material = new THREE.MeshPhongMaterial({
+    let material = new THREE.MeshBasicMaterial({
         map : texture,
         color : 0xFFFFFF
     })
@@ -41,7 +41,7 @@ var brick = () =>{
     let texture = new THREE.TextureLoader().load('./textures/brick_block.png')
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
-    let material = new THREE.MeshPhongMaterial({
+    let material = new THREE.MeshBasicMaterial({
         map : texture,
         color : 0xFFFFFF
     })

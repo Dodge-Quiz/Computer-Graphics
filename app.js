@@ -38,18 +38,12 @@ var doInit = () => {
 
     let light = createDirectionalLight()
 
-    scene.add(wood_block)
-    scene.add(brick_block)
-    scene.add(stone_block)
-
     scene.add(light)
     scene.add(Ground())
-    scene.add(controller.getObject())
+    //scene.add(controller.getObject())
 }
 
 var doRender = () => {
-    //Player_Grounded()
-
     deltaTime = new THREE.Clock().getDelta()
     FPS_Movement()
     reset_material()

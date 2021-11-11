@@ -20,6 +20,7 @@ let moveRight = false
 let isDown = false
 let prevTime = performance.now()
 let mass = 50
+let round_number = block_depth
 
 const FPS_Controller = () =>{
     controller = new PointerLockControls(camera, renderer.domElement)
@@ -149,58 +150,98 @@ const onKeyUp = ( event ) => {
 
         case 'Space':
             isDown = false
+            break
 
         case 'KeyR':
             remove_block()
+            break
     }
 
 }
 
 const add_block = () =>{
     if(controller.isLocked){
-        if(object_raycast.name != 'Ground'){
-            if(faceIndex === 8){ 
-                //depan
+        try{
+            if(object_raycast.name === 'Ground'){
+                let position_clone_x, position_clone_z
+                position_clone_x = Math.round(world_point.x / round_number) *  round_number
+                position_clone_z = Math.round(world_point.z / round_number) * round_number
                 clone_var = block_inhand.clone()
-                clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z + block_depth)
+                clone_var.traverse((node) => {
+                    if (node.isMesh) {
+                      node.material = node.material.clone();
+                    }
+                  })
+                clone_var.position.set(position_clone_x, 2.5, position_clone_z)
                 scene.add(clone_var)
             }
-            else if(faceIndex === 0){
-                //kanan
-                clone_var = block_inhand.clone()
-                clone_var.position.set(object_raycast.position.x + block_size_widht, object_raycast.position.y, object_raycast.position.z)
-                scene.add(clone_var)
-            }
-            else if(faceIndex === 10){
-                //belakang
-                clone_var = block_inhand.clone()
-                clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z - block_depth)
-                scene.add(clone_var)
-            }
-            else if(faceIndex === 2){
-                //kiri
-                clone_var = block_inhand.clone()
-                clone_var.position.set(object_raycast.position.x - block_size_widht, object_raycast.position.y, object_raycast.position.z)
-                scene.add(clone_var)
-            }
-            else if(faceIndex === 4){
-                //atas
-                clone_var = block_inhand.clone()
-                clone_var.position.set(object_raycast.position.x, object_raycast.position.y + block_size_height, object_raycast.position.z)
-                scene.add(clone_var)
+            else {
+                if(faceIndex === 8){ 
+                    //depan
+                    clone_var = block_inhand.clone()
+                    clone_var.traverse((node) => {
+                        if (node.isMesh) {
+                          node.material = node.material.clone();
+                        }
+                      })
+                    clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z + block_depth)
+                    scene.add(clone_var)
+                }
+                else if(faceIndex === 0){
+                    //kanan
+                    clone_var = block_inhand.clone()
+                    clone_var.traverse((node) => {
+                        if (node.isMesh) {
+                          node.material = node.material.clone();
+                        }
+                      })
+                    clone_var.position.set(object_raycast.position.x + block_size_widht, object_raycast.position.y, object_raycast.position.z)
+                    scene.add(clone_var)
+                }
+                else if(faceIndex === 10){
+                    //belakang
+                    clone_var = block_inhand.clone()
+                    clone_var.traverse((node) => {
+                        if (node.isMesh) {
+                          node.material = node.material.clone();
+                        }
+                      })
+                    clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z - block_depth)
+                    scene.add(clone_var)
+                }
+                else if(faceIndex === 2){
+                    //kiri
+                    clone_var = block_inhand.clone()
+                    clone_var.traverse((node) => {
+                        if (node.isMesh) {
+                          node.material = node.material.clone();
+                        }
+                      })
+                    clone_var.position.set(object_raycast.position.x - block_size_widht, object_raycast.position.y, object_raycast.position.z)
+                    scene.add(clone_var)
+                }
+                else if(faceIndex === 4){
+                    //atas
+                    clone_var = block_inhand.clone()
+                    clone_var.traverse((node) => {
+                        if (node.isMesh) {
+                          node.material = node.material.clone();
+                        }
+                      })
+                    clone_var.position.set(object_raycast.position.x, object_raycast.position.y + block_size_height, object_raycast.position.z)
+                    scene.add(clone_var)
+                }
             }
         }
-        else{
-            clone_var = block_inhand.clone()
-            clone_var.position.set(world_point.x, block_size_height, world_point.z)
-            scene.add(clone_var)
+        catch(error){
+
         }
     }
 }
 
 const remove_block = () =>{
     if(controller.isLocked){
-        if(object_raycast != null){
+        if(object_raycast != null && object_raycast.name != 'Ground'){
             object_raycast.geometry.dispose()
             object_raycast.material.dispose()
             scene.remove( object_raycast )
@@ -208,14 +249,5 @@ const remove_block = () =>{
         }
     }
 }
-
-// const Player_Grounded = () =>{
-//     if(camera.position.y > 7 ){
-//         isGrounded = false
-//     }
-//     else{
-//         isGrounded = true
-//     }
-// }
 
 export {FPS_Controller, FPS_Movement, controller}

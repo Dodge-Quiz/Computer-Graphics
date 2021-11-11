@@ -6,7 +6,7 @@ export const Ground = () =>{
     texture.wrapT = THREE.RepeatWrapping
     texture.wrapS = THREE.RepeatWrapping
     texture.repeat.set(10, 10)
-    let material = new THREE.MeshPhongMaterial({
+    let material = new THREE.MeshBasicMaterial({
         map : texture,
         side : THREE.DoubleSide
     })
