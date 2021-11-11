@@ -12,6 +12,7 @@ var block_inhand
 var clone_var
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
+var raycaster_ground = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10)
 
 let moveForward = false
 let moveBackward = false
@@ -39,7 +40,6 @@ const FPS_Movement = () =>{
 
     let time = performance.now()
     if (controller.isLocked) {
-
         const delta = ( time - prevTime ) / 1000
 
         velocity.x -= velocity.x * 10.0 * delta

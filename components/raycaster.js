@@ -10,7 +10,6 @@ export const reset_material = () =>{
     for ( let i = 0; i < scene.children.length; i ++ ) {
 		if(scene.children[i].material){
             scene.children[i].material.color.setHex(0xFFFFFF) 
-
         }
 	}
 }
