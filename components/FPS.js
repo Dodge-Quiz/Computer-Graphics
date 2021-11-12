@@ -2,7 +2,7 @@ import {PointerLockControls} from '../three.js/examples/jsm/controls/PointerLock
 import { camera, renderer, scene } from '../app.js'
 import * as THREE from '../three.js/build/three.module.js'
 import { wood_block, brick_block, stone_block, block_size_height, block_size_widht, block_depth } from './block.js'
-import { faceIndex, object_raycast, world_point } from './raycaster.js'
+import { faceIndex, object_raycast, world_point, onObject } from './raycaster.js'
 
 var controller
 var speed = 400
@@ -12,7 +12,6 @@ var block_inhand
 var clone_var
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
-var raycaster_ground = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10)
 
 let moveForward = false
 let moveBackward = false
@@ -58,10 +57,10 @@ const FPS_Movement = () =>{
             velocity.x -= direction.x * speed * delta
         }
 
-        // if ( onObject === true ) {
-        //     velocity.y = Math.max( 0, velocity.y )
-        //     isGrounded = true
-        // }
+        if ( onObject === true ) {
+            velocity.y = Math.max(0, velocity.y)
+            isGrounded = true
+        }
 
         controller.moveRight( - velocity.x * delta )
         controller.moveForward( - velocity.z * delta )

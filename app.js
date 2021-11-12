@@ -3,7 +3,7 @@ import {FPS_Controller, FPS_Movement, controller} from './components/FPS.js'
 import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 import { download_model } from './components/exporter.js'
-import { check_raycast, reset_material } from './components/raycaster.js'
+import { check_raycast, reset_material, check_ground } from './components/raycaster.js'
 
 var scene, camera, renderer
 
@@ -45,6 +45,7 @@ var doInit = () => {
 
 var doRender = () => {
     deltaTime = new THREE.Clock().getDelta()
+    check_ground()
     FPS_Movement()
     reset_material()
     check_raycast()
