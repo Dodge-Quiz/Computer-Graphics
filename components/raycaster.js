@@ -31,6 +31,8 @@ export const check_raycast = () =>{
         object_raycast = intersects[0].object
         world_point = intersects[0].point
 	}
+
+    //console.log(object_raycast.name)
 }
 
 export const check_ground = () =>{

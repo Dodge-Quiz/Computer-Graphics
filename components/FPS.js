@@ -3,12 +3,13 @@ import { camera, renderer, scene } from '../app.js'
 import * as THREE from '../three.js/build/three.module.js'
 import { wood_block, brick_block, stone_block, block_size_height, block_size_widht, block_depth } from './block.js'
 import { faceIndex, object_raycast, world_point, onObject } from './raycaster.js'
+import { Meja } from './model_loader.js'
 
 var controller
 var speed = 400
 var jump_height = 100
 var isGrounded
-var block_inhand
+var block_inhand = new THREE.Object3D()
 var clone_var
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
@@ -118,6 +119,10 @@ const onKeyDown = ( event ) => {
         case 'Digit3':
             block_inhand = brick_block
             break
+        case 'Digit4':
+            block_inhand = new THREE.Object3D()
+            Meja(block_inhand)
+            break
 
     }
 
@@ -161,74 +166,148 @@ const onKeyUp = ( event ) => {
 const add_block = () =>{
     if(controller.isLocked){
         try{
-            if(object_raycast.name === 'Ground'){
-                let position_clone_x, position_clone_z
-                position_clone_x = Math.round(world_point.x / round_number) *  round_number
-                position_clone_z = Math.round(world_point.z / round_number) * round_number
-                clone_var = block_inhand.clone()
-                clone_var.traverse((node) => {
-                    if (node.isMesh) {
-                      node.material = node.material.clone();
+            if(block_inhand.name === 'block'){
+                if(object_raycast.name === 'Ground'){
+                    let position_clone_x, position_clone_z
+                    position_clone_x = Math.round(world_point.x / round_number) *  round_number
+                    position_clone_z = Math.round(world_point.z / round_number) * round_number
+                    clone_var = block_inhand.clone()
+                    clone_var.traverse((node) => {
+                        if (node.isMesh) {
+                          node.material = node.material.clone();
+                        }
+                      })
+                    clone_var.position.set(position_clone_x, 2.5, position_clone_z)
+                    scene.add(clone_var)
+                }
+                else {
+                    if(faceIndex === 8){ 
+                        //depan
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z + block_depth)
+                        scene.add(clone_var)
                     }
-                  })
-                clone_var.position.set(position_clone_x, 2.5, position_clone_z)
-                scene.add(clone_var)
+                    else if(faceIndex === 0){
+                        //kanan
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x + block_size_widht, object_raycast.position.y, object_raycast.position.z)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 10){
+                        //belakang
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z - block_depth)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 2){
+                        //kiri
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x - block_size_widht, object_raycast.position.y, object_raycast.position.z)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 4){
+                        //atas
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x, object_raycast.position.y + block_size_height, object_raycast.position.z)
+                        scene.add(clone_var)
+                    }
+                }
             }
-            else {
-                if(faceIndex === 8){ 
-                    //depan
+            else if(block_inhand.name === 'meja'){
+                if(object_raycast.name === 'Ground'){
+                    let position_clone_x, position_clone_z
+                    position_clone_x = Math.round(world_point.x / round_number) *  round_number
+                    position_clone_z = Math.round(world_point.z / round_number) * round_number
                     clone_var = block_inhand.clone()
                     clone_var.traverse((node) => {
                         if (node.isMesh) {
                           node.material = node.material.clone();
                         }
                       })
-                    clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z + block_depth)
+                    clone_var.position.set(position_clone_x, 2.5, position_clone_z)
                     scene.add(clone_var)
                 }
-                else if(faceIndex === 0){
-                    //kanan
-                    clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
-                    clone_var.position.set(object_raycast.position.x + block_size_widht, object_raycast.position.y, object_raycast.position.z)
-                    scene.add(clone_var)
-                }
-                else if(faceIndex === 10){
-                    //belakang
-                    clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
-                    clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z - block_depth)
-                    scene.add(clone_var)
-                }
-                else if(faceIndex === 2){
-                    //kiri
-                    clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
-                    clone_var.position.set(object_raycast.position.x - block_size_widht, object_raycast.position.y, object_raycast.position.z)
-                    scene.add(clone_var)
-                }
-                else if(faceIndex === 4){
-                    //atas
-                    clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
-                    clone_var.position.set(object_raycast.position.x, object_raycast.position.y + block_size_height, object_raycast.position.z)
-                    scene.add(clone_var)
+                else {
+                    if(faceIndex === 8){ 
+                        //depan
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z + block_depth)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 0){
+                        //kanan
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x + block_size_widht, object_raycast.position.y, object_raycast.position.z)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 10){
+                        //belakang
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x, object_raycast.position.y, object_raycast.position.z - block_depth)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 2){
+                        //kiri
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x - block_size_widht, object_raycast.position.y, object_raycast.position.z)
+                        scene.add(clone_var)
+                    }
+                    else if(faceIndex === 4){
+                        //atas
+                        clone_var = block_inhand.clone()
+                        clone_var.traverse((node) => {
+                            if (node.isMesh) {
+                              node.material = node.material.clone();
+                            }
+                          })
+                        clone_var.position.set(object_raycast.position.x, object_raycast.position.y + block_size_height, object_raycast.position.z)
+                        scene.add(clone_var)
+                    }
                 }
             }
         }

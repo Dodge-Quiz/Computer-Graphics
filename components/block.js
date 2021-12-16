@@ -18,6 +18,7 @@ var wood = () =>{
     let object = new THREE.Mesh(object_geometry, material)
     object.castShadow = true
     object.receiveShadow = true
+    object.name = 'block'
     return object
 }
 
@@ -33,6 +34,7 @@ var stone = () =>{
     let object = new THREE.Mesh(object_geometry, material)
     object.castShadow = true
     object.receiveShadow = true
+    object.name = 'block'
     return object
 }
 
@@ -48,6 +50,7 @@ var brick = () =>{
     let object = new THREE.Mesh(object_geometry, material)
     object.castShadow = true
     object.receiveShadow = true
+    object.name = 'block'
     return object
 }
 
