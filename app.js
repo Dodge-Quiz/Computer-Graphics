@@ -4,6 +4,7 @@ import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 import { download_model } from './components/exporter.js'
 import { check_raycast, reset_material, check_ground } from './components/raycaster.js'
+import { SkyBox } from './components/skybox.js'
 
 var scene, camera, renderer
 
@@ -31,6 +32,8 @@ var doInit = () => {
     document.body.appendChild(renderer.domElement)
 
     FPS_Controller()
+
+    SkyBox()
 
     wood_block.position.set(6, 2.5, 2)
     brick_block.position.set(0, 2.5, 2)

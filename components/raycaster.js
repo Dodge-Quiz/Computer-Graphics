@@ -12,7 +12,7 @@ const raycaster = new THREE.Raycaster()
 
 export const reset_material = () =>{
     for ( let i = 0; i < scene.children.length; i ++ ) {
-		if(scene.children[i].material){
+		if(scene.children[i].material && scene.children[i].name !== 'skybox'){
             scene.children[i].material.color.setHex(0xFFFFFF) 
         }
 	}
@@ -24,7 +24,7 @@ export const check_raycast = () =>{
     object_raycast = null
 
 	for ( let i = 0; i < intersects.length; i++ ) {
-        if(intersects[i].object.name != 'Ground'){
+        if(intersects[i].object.name != 'Ground'  && intersects[i].object.name !== 'skybox'){
             intersects[0].object.material.color.setHex(0x585859)
             faceIndex = intersects[0].faceIndex
         }
