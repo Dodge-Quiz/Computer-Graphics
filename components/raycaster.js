@@ -9,6 +9,7 @@ export var object_sum = 0
 
 const ground_raycaster = new THREE.Raycaster()
 const raycaster = new THREE.Raycaster()
+const model = ['lemari', 'lemari_kecil', 'meja', 'meja_kecil', 'Ground', 'skybox']
 
 export const reset_material = () =>{
     for ( let i = 0; i < scene.children.length; i ++ ) {
@@ -24,15 +25,14 @@ export const check_raycast = () =>{
     object_raycast = null
 
 	for ( let i = 0; i < intersects.length; i++ ) {
-        if(intersects[i].object.name != 'Ground'  && intersects[i].object.name !== 'skybox'){
+        const name = intersects[i].object.name
+        if(!model.includes(name)){
             intersects[0].object.material.color.setHex(0x585859)
             faceIndex = intersects[0].faceIndex
         }
         object_raycast = intersects[0].object
         world_point = intersects[0].point
 	}
-
-    //console.log(object_raycast.name)
 }
 
 export const check_ground = () =>{

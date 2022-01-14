@@ -1,9 +1,16 @@
 import {GLTFExporter} from '../three.js/examples/jsm/exporters/GLTFExporter.js'
 import {scene} from '../app.js'
+import * as THREE from '../three.js/build/three.module.js'
 
 export const download_model = () =>{
     const exporter = new GLTFExporter()
-    exporter.parse(scene, function(result){
+    const things = new THREE.Scene()
+    for ( let i = 0; i < scene.children.length; i ++ ) {
+		if(scene.children[i].name !== 'skybox'){
+            things.add(scene.children[i].clone())
+        }
+	}
+    exporter.parse(things, function(result){
         saveArrayBuffer(result, 'Dormicate.glb')
     },{
         binary : true

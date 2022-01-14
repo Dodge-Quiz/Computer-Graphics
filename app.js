@@ -1,10 +1,10 @@
 import * as THREE from './three.js/build/three.module.js'
 import {FPS_Controller, FPS_Movement, controller} from './components/FPS.js'
-import {Ground} from './components/ground.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 import { download_model } from './components/exporter.js'
 import { check_raycast, reset_material, check_ground } from './components/raycaster.js'
 import { SkyBox } from './components/skybox.js'
+import { Ground } from './components/ground.js'
 
 var scene, camera, renderer
 
@@ -34,6 +34,7 @@ var doInit = () => {
     FPS_Controller()
 
     SkyBox()
+    Ground()
 
     wood_block.position.set(6, 2.5, 2)
     brick_block.position.set(0, 2.5, 2)
@@ -42,7 +43,6 @@ var doInit = () => {
     let light = createDirectionalLight()
 
     scene.add(light)
-    scene.add(Ground())
     //scene.add(controller.getObject())
 }
 
@@ -81,7 +81,7 @@ var createDirectionalLight = () =>{
 
 const export_scene = () => {
     const export_btn = document.getElementById('export_btn')
-    export_btn.style.display = 'none'
+    //export_btn.style.display = 'none'
     export_btn.addEventListener('click', download_model)
 }
 

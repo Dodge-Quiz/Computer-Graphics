@@ -1,3 +1,4 @@
+import { scene } from '../app.js'
 import * as THREE from '../three.js/build/three.module.js'
 
 export const Ground = () =>{
@@ -14,5 +15,5 @@ export const Ground = () =>{
     object.receiveShadow = true
     object.rotation.set(-Math.PI / 2, 0, 0)
     object.name = 'Ground'
-    return object
+    scene.add(object)
 }
