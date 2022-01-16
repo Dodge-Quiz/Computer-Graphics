@@ -11,6 +11,7 @@ var jump_height = 100
 var isGrounded
 var block_inhand = new THREE.Object3D()
 var clone_var
+var player_position = new THREE.Vector3()
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
 
@@ -174,6 +175,10 @@ const onKeyUp = ( event ) => {
 
 }
 
+export const update_position = (position) =>{
+    player_position = position
+}
+
 const add_block = () =>{
     if(controller.isLocked){
         try{
@@ -257,8 +262,8 @@ const add_block = () =>{
                           node.material = node.material.clone();
                         }
                       })
-                    clone_var.lookAt(camera.position.x, 0, camera.position.z)
                     clone_var.position.set(world_point.x, 0, world_point.z)
+                    clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
                 }
             }
@@ -270,8 +275,8 @@ const add_block = () =>{
                           node.material = node.material.clone();
                         }
                       })
-                    clone_var.lookAt(camera.position.x, 0, camera.position.z)
                     clone_var.position.set(world_point.x, 0, world_point.z)
+                    clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
                 }
             }
@@ -284,7 +289,7 @@ const add_block = () =>{
                         }
                       })
                     clone_var.position.set(world_point.x, -0.5, world_point.z)
-                    clone_var.lookAt(camera.position.x, 0, camera.position.z)
+                    clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
                 }
             }
@@ -297,7 +302,7 @@ const add_block = () =>{
                         }
                       })
                     clone_var.position.set(world_point.x, 0, world_point.z)
-                    clone_var.lookAt(camera.position.x, 0, camera.position.y)
+                    clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
                 }
             }

@@ -1,5 +1,5 @@
 import * as THREE from './three.js/build/three.module.js'
-import {FPS_Controller, FPS_Movement, controller} from './components/FPS.js'
+import {FPS_Controller, FPS_Movement, controller, update_position} from './components/FPS.js'
 import { wood_block, stone_block, brick_block } from './components/block.js'
 import { download_model } from './components/exporter.js'
 import { check_raycast, reset_material, check_ground } from './components/raycaster.js'
@@ -52,6 +52,7 @@ var doRender = () => {
     FPS_Movement()
     reset_material()
     check_raycast()
+    update_position(camera.position)
 
     requestAnimationFrame(doRender)
     renderer.render(scene, camera)

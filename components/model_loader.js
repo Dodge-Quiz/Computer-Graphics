@@ -1,4 +1,4 @@
-import { GLTFLoader } from './three.js/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from '../three.js/examples/jsm/loaders/GLTFLoader.js'
 import * as THREE from '../three.js/build/three.module.js'
 
 export const Lemari = (object3D) =>{
@@ -30,9 +30,8 @@ export const LemariBukuKecil = (object3D) =>{
         lemari_buku_kecil.traverse((node) =>{
             if(node.isMesh) node.name = 'lemari_kecil'
         })
-        lemari_buku_kecil.rotation.y += Math.PI / 2
-        lemari_buku_kecil.position.y -= 5.5
-        lemari_buku_kecil.position.x += 7
+        lemari_buku_kecil.rotation.y -= Math.PI / 2
+        lemari_buku_kecil.position.set(lemari_buku_kecil.position.x - 7, lemari_buku_kecil.position.y - 5.5, 0)
         object3D.add(lemari_buku_kecil)
         object3D.name = 'lemari_kecil'
     })
