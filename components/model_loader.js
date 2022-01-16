@@ -1,4 +1,4 @@
-import { GLTFLoader } from '../three.js/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from './three.js/examples/jsm/loaders/GLTFLoader.js'
 import * as THREE from '../three.js/build/three.module.js'
 
 export const Lemari = (object3D) =>{
