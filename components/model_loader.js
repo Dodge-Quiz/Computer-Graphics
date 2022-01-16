@@ -1,4 +1,4 @@
-import { GLTFLoader } from '../three.js/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from './three.js/examples/jsm/loaders/GLTFLoader.js'
 import * as THREE from '../three.js/build/three.module.js'
 
 export const Lemari = (object3D) =>{
@@ -22,7 +22,7 @@ export const Lemari = (object3D) =>{
 export const LemariBukuKecil = (object3D) =>{
     const loader = new GLTFLoader();
 
-    loader.load( './model/LemariBukuKecil/lemariBukuKecil_normal.gltf', ( gltf ) =>{
+    loader.load( './model/LemariBukukecil/lemariBukuKecil_normal.gltf', ( gltf ) =>{
 
         let lemari_buku_kecil = new THREE.Group()
         gltf.scene.scale.set(5, 5, 5)
@@ -58,7 +58,7 @@ export const Meja = (object3D) =>{
 export const MejaKecil = (object3D) =>{
     const loader = new GLTFLoader();
 
-    loader.load( './model/MejaKecil/mejaKecil_kayu.gltf', ( gltf ) =>{
+    loader.load( './model/MejaKecil/MejaKecil_kayu.gltf', ( gltf ) =>{
 
         let meja_kecil = new THREE.Group()
         gltf.scene.scale.set(1, 1, 1)
