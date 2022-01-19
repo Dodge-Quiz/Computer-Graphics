@@ -3,7 +3,7 @@ import { camera, renderer, scene } from '../app.js'
 import * as THREE from '../three.js/build/three.module.js'
 import { wood_block, brick_block, stone_block, block_size_height, block_size_widht, block_depth } from './block.js'
 import { faceIndex, object_raycast, world_point, onObject } from './raycaster.js'
-import { Lemari, LemariBukuKecil, Meja, MejaKecil } from './model_loader.js'
+import { BangkuKayu, Lemari, LemariBukuKecil, Meja, MejaKecil, Sofa } from './model_loader.js'
 
 var controller
 var speed = 400
@@ -24,6 +24,8 @@ let isDown = false
 let prevTime = performance.now()
 let mass = 50
 let round_number = block_depth
+
+const model = ['lemari', 'lemari_kecil', 'meja', 'meja_kecil', 'bangku_kayu', 'sofa_hitam']
 
 const FPS_Controller = () =>{
     controller = new PointerLockControls(camera, renderer.domElement)
@@ -156,6 +158,17 @@ const onKeyDown = ( event ) => {
             LemariBukuKecil(block_inhand)
             ui_handler(7)
             break
+        case 'Digit8':
+            block_inhand = new THREE.Group()
+            BangkuKayu(block_inhand)
+            ui_handler(8)
+            break
+        case 'Digit9':
+            block_inhand = new THREE.Group()
+            Sofa(block_inhand)
+            ui_handler(9)
+            break
+
     }
 
 }
@@ -203,8 +216,10 @@ const ui_handler = (number) =>{
     const block5 = document.getElementById("block5")
     const block6 = document.getElementById("block6")
     const block7 = document.getElementById("block7")
+    const block8 = document.getElementById("block8")
+    const block9 = document.getElementById("block9")
 
-    for(let i = 1; i < 8; i++){
+    for(let i = 1; i < 10; i++){
         if(number !== i){
             switch(i){
                 case 1:
@@ -227,6 +242,12 @@ const ui_handler = (number) =>{
                     break
                 case 7:
                     block7.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 8:
+                    block8.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 9:
+                    block9.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
                     break
             }
         }
@@ -253,6 +274,12 @@ const ui_handler = (number) =>{
             break
         case 7:
             block7.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 8:
+            block8.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 9:
+            block9.style.backgroundColor = "rgba(0, 0, 0, 1)"
             break
     }
 }
@@ -336,31 +363,7 @@ const add_block = () =>{
                     }
                 }
             }
-            else if(block_inhand.name === 'meja'){
-                if(object_raycast.name === 'Ground'){
-                    clone_var = block_inhand.clone()
-                    clone_var.position.set(world_point.x, 0, world_point.z)
-                    clone_var.lookAt(player_position.x, 0, player_position.z)
-                    scene.add(clone_var)
-                }
-            }
-            else if(block_inhand.name === 'meja_kecil'){
-                if(object_raycast.name === 'Ground'){
-                    clone_var = block_inhand.clone()
-                    clone_var.position.set(world_point.x, 0, world_point.z)
-                    clone_var.lookAt(player_position.x, 0, player_position.z)
-                    scene.add(clone_var)
-                }
-            }
-            else if(block_inhand.name === 'lemari'){
-                if(object_raycast.name === 'Ground'){
-                    clone_var = block_inhand.clone()
-                    clone_var.position.set(world_point.x, -0.5, world_point.z)
-                    clone_var.lookAt(player_position.x, 0, player_position.z)
-                    scene.add(clone_var)
-                }
-            }
-            else if(block_inhand.name === 'lemari_kecil'){
+            else if(model.includes(block_inhand.name)){
                 if(object_raycast.name === 'Ground'){
                     clone_var = block_inhand.clone()
                     // clone_var.traverse((node) => {
@@ -373,16 +376,13 @@ const add_block = () =>{
                     scene.add(clone_var)
                 }
             }
+            
         }
-        catch(error){
-
-        }
+        catch(error){}
     }
 }
 
 const remove_block = () =>{
-    const model = ['lemari', 'lemari_kecil', 'meja', 'meja_kecil']
-
     if(controller.isLocked){
         if(object_raycast !== null){
             if(object_raycast.name === 'block'){
@@ -401,7 +401,6 @@ const remove_block = () =>{
                             parent.children[i].material.dispose()
                             parent.remove( parent.children[i] )
                             renderer.renderLists.dispose()
-                            console.log(parent.children[i])
                         }
                     }
                 }

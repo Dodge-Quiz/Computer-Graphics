@@ -64,3 +64,36 @@ export const MejaKecil = (object3D) =>{
         object3D.name = 'meja_kecil'
     })
 }
+
+export const BangkuKayu = (object3D) =>{
+    const loader = new GLTFLoader();
+
+    loader.load( './model/BangkuKayu/bangku_kayu.gltf', ( gltf ) =>{
+
+        let bangku_kayu = new THREE.Group()
+        gltf.scene.scale.set(3, 3, 3)
+        bangku_kayu = gltf.scene.clone()
+        bangku_kayu.name = 'bangku_kayu'
+        bangku_kayu.rotation.y -= Math.PI
+        bangku_kayu.position.x += 0.3
+        object3D.add(bangku_kayu)
+        object3D.name = 'bangku_kayu'
+    })
+}
+
+export const Sofa = (object3D) =>{
+    const loader = new GLTFLoader();
+
+    loader.load( './model/Sofa/sofa_Krem.gltf', ( gltf ) =>{
+
+        let sofa_hitam = new THREE.Group()
+        gltf.scene.scale.set(4, 4, 4)
+        sofa_hitam = gltf.scene.clone()
+        sofa_hitam.name = 'sofa_hitam'
+        sofa_hitam.rotation.y -= Math.PI / 2
+        sofa_hitam.position.x -= 4
+        sofa_hitam.position.y -= 1
+        object3D.add(sofa_hitam)
+        object3D.name = 'sofa_hitam'
+    })
+}
