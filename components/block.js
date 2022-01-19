@@ -54,13 +54,8 @@ var brick = () =>{
     return object
 }
 
-var glass = () =>{
-
-}
-
 var wood_block = wood()
 var stone_block = stone()
 var brick_block = brick()
-var glass_block = glass()
 
 export {wood_block, stone_block, brick_block}

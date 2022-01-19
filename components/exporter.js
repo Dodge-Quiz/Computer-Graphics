@@ -27,3 +27,28 @@ function save(blob, filename){
     link.download = filename
     link.click()
 }
+
+export const saving = () =>{
+    const scene_temp = new THREE.Scene()
+    for ( let i = 0; i < scene.children.length; i ++ ) {
+        scene_temp.add(scene.children[i].clone())
+	}
+    localStorage.setItem('save', JSON.stringify(scene_temp))
+}
+
+export const loading = () =>{
+    let scene_temp = localStorage.getItem('save')
+    for ( let i = 0; i < scene.children.length; i++ ) {
+        scene.remove(scene.children[i])
+	}
+    if(scene_temp){
+        let loadedGeometry = JSON.parse(scene_temp);
+        let loader = new THREE.ObjectLoader();
+
+        let loadedMesh = loader.parse(loadedGeometry);
+        for ( let i = 0; i < loadedMesh.children.length; i++){
+            scene.add(loadedMesh.children[i].clone());
+        } 
+        loadedMesh = ""
+    }
+}

@@ -5,23 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dormicate</title>
     <link rel="icon" href="./textures/icon.png" type="image/icon type">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            width: 100vw;
-            height: 100wh;
-            overflow: hidden;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <script src="./app.js" type="module"></script>
-    <button id="export_btn">Export</button>
+    <div class="main_area">
+        <script src="./app.js" type="module"></script>
+        <div class="crosshair">
+            <img id="crosshair" src="./textures/crosshair.png">
+        </div>
+        <div class="menu" id="menu"> 
+            <h2 id="menu_text">Menu</h2>
+            <table class="button">
+                <tr>
+                    <th><button id="export_btn">Export</button></th>
+                </tr>
+                <tr>
+                    <th><button id="save_btn">Save</button></th>
+                    <th><button id="load_btn">Load</button></th>
+                </tr>
+            </table>
+        </div>
+        <div class="block_ui">
+            <table>
+                <tr>
+                    <th id="block1" class="block"><img src="./textures/wood_block.png"></th>
+                    <th id="block2" class="block"><img src="./textures/stone_block.jpg"></th>
+                    <th id="block3" class="block"><img src="./textures/brick_block.png"></th>
+                    <th id="block4" class="block"><img src="./textures/meja.png"></th>
+                    <th id="block5" class="block"><img src="./textures/meja_kecil.png"></th>
+                    <th id="block6" class="block"><img src="./textures/lemari.png"></th>
+                    <th id="block7" class="block"><img src="./textures/lemari_kecil.png"></th>
+                </tr>
+            </table>
+        </div>
+        <canvas id="dormicate"></canvas>
+    </div>
 </body>
 </html>

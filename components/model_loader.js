@@ -3,15 +3,15 @@ import * as THREE from '../three.js/build/three.module.js'
 
 export const Lemari = (object3D) =>{
     const loader = new GLTFLoader();
+    let i = 0
 
     loader.load( './model/Lemari/lemari_kayu.gltf', ( gltf ) =>{
 
         let lemari = new THREE.Group()
         gltf.scene.scale.set(2, 2, 2)
-        lemari.add(gltf.scene.clone())
-        lemari.traverse((node) =>{
-            if(node.isMesh) node.name = 'lemari'
-        })
+        lemari = gltf.scene.clone()
+        lemari.name = 'lemari'
+        i = 0
         lemari.rotation.y -= Math.PI / 2
         lemari.position.x -= 5
         object3D.add(lemari)
@@ -26,10 +26,8 @@ export const LemariBukuKecil = (object3D) =>{
 
         let lemari_buku_kecil = new THREE.Group()
         gltf.scene.scale.set(5, 5, 5)
-        lemari_buku_kecil.add(gltf.scene.clone())
-        lemari_buku_kecil.traverse((node) =>{
-            if(node.isMesh) node.name = 'lemari_kecil'
-        })
+        lemari_buku_kecil= gltf.scene.clone()
+        lemari_buku_kecil.name = 'lemari_kecil'
         lemari_buku_kecil.rotation.y -= Math.PI / 2
         lemari_buku_kecil.position.set(lemari_buku_kecil.position.x - 7, lemari_buku_kecil.position.y - 5.5, 0)
         object3D.add(lemari_buku_kecil)
@@ -44,10 +42,8 @@ export const Meja = (object3D) =>{
 
         let meja = new THREE.Group()
         gltf.scene.scale.set(1, 1, 1)
-        meja.add(gltf.scene.clone())
-        meja.traverse((node) =>{
-            if(node.isMesh) node.name = 'meja'
-        })
+        meja = gltf.scene.clone()
+        meja.name = 'meja'
         meja.position.y += 1.5
         object3D.add(meja)
         object3D.name = 'meja'
@@ -61,10 +57,8 @@ export const MejaKecil = (object3D) =>{
 
         let meja_kecil = new THREE.Group()
         gltf.scene.scale.set(1, 1, 1)
-        meja_kecil.add(gltf.scene.clone())
-        meja_kecil.traverse((node) =>{
-            if(node.isMesh) node.name = 'meja_kecil'
-        })
+        meja_kecil = gltf.scene.clone()
+        meja_kecil.name = 'meja_kecil'
         meja_kecil.position.y += 0.2
         object3D.add(meja_kecil)
         object3D.name = 'meja_kecil'

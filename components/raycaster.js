@@ -26,7 +26,7 @@ export const check_raycast = () =>{
 
 	for ( let i = 0; i < intersects.length; i++ ) {
         const name = intersects[i].object.name
-        if(!model.includes(name)){
+        if(name === 'block'){
             intersects[0].object.material.color.setHex(0x585859)
             faceIndex = intersects[0].faceIndex
         }

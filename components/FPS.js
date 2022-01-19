@@ -14,6 +14,7 @@ var clone_var
 var player_position = new THREE.Vector3()
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
+var isMenu = false
 
 let moveForward = false
 let moveBackward = false
@@ -109,32 +110,51 @@ const onKeyDown = ( event ) => {
             isDown = true
             break
 
+        case 'KeyP':
+            const menu = document.getElementById('menu')
+            if(isMenu){
+                menu.style.display = "none"
+                isMenu = false
+            }
+            else{
+                menu.style.display = "block"
+                isMenu = true
+            }
+            break
+
         case 'Digit1':
             block_inhand = wood_block
+            ui_handler(1)
             break
         
         case 'Digit2':
             block_inhand = stone_block
+            ui_handler(2)
             break
         
         case 'Digit3':
             block_inhand = brick_block
+            ui_handler(3)
             break
         case 'Digit4':
-            block_inhand = new THREE.Object3D()
+            block_inhand = new THREE.Group()
             Meja(block_inhand)
+            ui_handler(4)
             break
         case 'Digit5':
-            block_inhand = new THREE.Object3D()
+            block_inhand = new THREE.Group()
             MejaKecil(block_inhand)
+            ui_handler(5)
             break
         case 'Digit6':
-            block_inhand = new THREE.Object3D()
+            block_inhand = new THREE.Group()
             Lemari(block_inhand)
+            ui_handler(6)
             break
         case 'Digit7':
-            block_inhand = new THREE.Object3D()
+            block_inhand = new THREE.Group()
             LemariBukuKecil(block_inhand)
+            ui_handler(7)
             break
     }
 
@@ -173,6 +193,68 @@ const onKeyUp = ( event ) => {
             break
     }
 
+}
+
+const ui_handler = (number) =>{
+    const block1 = document.getElementById("block1")
+    const block2 = document.getElementById("block2")
+    const block3 = document.getElementById("block3")
+    const block4 = document.getElementById("block4")
+    const block5 = document.getElementById("block5")
+    const block6 = document.getElementById("block6")
+    const block7 = document.getElementById("block7")
+
+    for(let i = 1; i < 8; i++){
+        if(number !== i){
+            switch(i){
+                case 1:
+                    block1.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 2:
+                    block2.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 3:
+                    block3.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 4:
+                    block4.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 5:
+                    block5.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 6:
+                    block6.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+                case 7:
+                    block7.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+                    break
+            }
+        }
+    }
+
+    switch(number){
+        case 1:
+            block1.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 2:
+            block2.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 3:
+            block3.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 4:
+            block4.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 5:
+            block5.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 6:
+            block6.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+        case 7:
+            block7.style.backgroundColor = "rgba(0, 0, 0, 1)"
+            break
+    }
 }
 
 export const update_position = (position) =>{
@@ -257,11 +339,6 @@ const add_block = () =>{
             else if(block_inhand.name === 'meja'){
                 if(object_raycast.name === 'Ground'){
                     clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
                     clone_var.position.set(world_point.x, 0, world_point.z)
                     clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
@@ -270,11 +347,6 @@ const add_block = () =>{
             else if(block_inhand.name === 'meja_kecil'){
                 if(object_raycast.name === 'Ground'){
                     clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
                     clone_var.position.set(world_point.x, 0, world_point.z)
                     clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
@@ -283,11 +355,6 @@ const add_block = () =>{
             else if(block_inhand.name === 'lemari'){
                 if(object_raycast.name === 'Ground'){
                     clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
                     clone_var.position.set(world_point.x, -0.5, world_point.z)
                     clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
@@ -296,11 +363,11 @@ const add_block = () =>{
             else if(block_inhand.name === 'lemari_kecil'){
                 if(object_raycast.name === 'Ground'){
                     clone_var = block_inhand.clone()
-                    clone_var.traverse((node) => {
-                        if (node.isMesh) {
-                          node.material = node.material.clone();
-                        }
-                      })
+                    // clone_var.traverse((node) => {
+                    //     if (node.isMesh) {
+                    //       node.material = node.material.clone();
+                    //     }
+                    //   })
                     clone_var.position.set(world_point.x, 0, world_point.z)
                     clone_var.lookAt(player_position.x, 0, player_position.z)
                     scene.add(clone_var)
@@ -314,12 +381,31 @@ const add_block = () =>{
 }
 
 const remove_block = () =>{
+    const model = ['lemari', 'lemari_kecil', 'meja', 'meja_kecil']
+
     if(controller.isLocked){
-        if(object_raycast != null && object_raycast.name != 'Ground'){
-            object_raycast.geometry.dispose()
-            object_raycast.material.dispose()
-            scene.remove( object_raycast )
-            renderer.renderLists.dispose()
+        if(object_raycast !== null){
+            if(object_raycast.name === 'block'){
+                object_raycast.geometry.dispose()
+                object_raycast.material.dispose()
+                scene.remove( object_raycast )
+                renderer.renderLists.dispose()
+            }
+            else{
+                let name = object_raycast.parent.name
+                let parent = object_raycast.parent
+                if(model.includes(name)){
+                    for(let i = parent.children.length - 1; i >= 0; i--){
+                        if(parent.children[i].isMesh){
+                            parent.children[i].geometry.dispose()
+                            parent.children[i].material.dispose()
+                            parent.remove( parent.children[i] )
+                            renderer.renderLists.dispose()
+                            console.log(parent.children[i])
+                        }
+                    }
+                }
+            }
         }
     }
 }

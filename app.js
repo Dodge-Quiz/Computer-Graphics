@@ -1,7 +1,6 @@
 import * as THREE from './three.js/build/three.module.js'
-import {FPS_Controller, FPS_Movement, controller, update_position} from './components/FPS.js'
-import { wood_block, stone_block, brick_block } from './components/block.js'
-import { download_model } from './components/exporter.js'
+import {FPS_Controller, FPS_Movement, update_position} from './components/FPS.js'
+import { download_model, loading, saving } from './components/exporter.js'
 import { check_raycast, reset_material, check_ground } from './components/raycaster.js'
 import { SkyBox } from './components/skybox.js'
 import { Ground } from './components/ground.js'
@@ -23,27 +22,22 @@ var doInit = () => {
     camera.lookAt(0, 0, 0)
 
     export_scene()
+    save_scene()
+    load_scene()
     
-    renderer = new THREE.WebGLRenderer({antialias: true})
+    renderer = new THREE.WebGLRenderer({antialias: true, canvas: dormicate})
     renderer.setSize(WIDTH, HEIGHT)
     renderer.setClearColor(0x87CEEB)
     renderer.shadowMap.enabled = true
-
-    document.body.appendChild(renderer.domElement)
 
     FPS_Controller()
 
     SkyBox()
     Ground()
 
-    wood_block.position.set(6, 2.5, 2)
-    brick_block.position.set(0, 2.5, 2)
-    stone_block.position.set(-6, 2.5, 2)
-
     let light = createDirectionalLight()
 
     scene.add(light)
-    //scene.add(controller.getObject())
 }
 
 var doRender = () => {
@@ -82,8 +76,17 @@ var createDirectionalLight = () =>{
 
 const export_scene = () => {
     const export_btn = document.getElementById('export_btn')
-    //export_btn.style.display = 'none'
     export_btn.addEventListener('click', download_model)
+}
+
+const save_scene = () =>{
+    const save_btn = document.getElementById('save_btn')
+    save_btn.addEventListener('click', saving)
+}
+
+const load_scene = () =>{
+    const load_btn = document.getElementById('load_btn')
+    load_btn.addEventListener('click', loading)
 }
 
 export {camera, renderer, scene}
