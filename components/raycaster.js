@@ -16,6 +16,14 @@ export const reset_material = () =>{
 		if(scene.children[i].material && scene.children[i].name !== 'skybox'){
             scene.children[i].material.color.setHex(0xFFFFFF) 
         }
+        else if(scene.children[i].type === 'Group'){
+            let object = scene.children[i].children[0]
+            for(let i = object.children.length - 1; i >= 0; i--){
+                if(object.children[i].type === 'Mesh'){
+                    object.children[i].material.color.setHex(0xFFFFFF)
+                }
+            }
+        }
 	}
 }
 
@@ -24,15 +32,21 @@ export const check_raycast = () =>{
     const intersects = raycaster.intersectObjects( scene.children )
     object_raycast = null
 
-	for ( let i = 0; i < intersects.length; i++ ) {
-        const name = intersects[i].object.name
-        if(name === 'block'){
-            intersects[0].object.material.color.setHex(0x585859)
-            faceIndex = intersects[0].faceIndex
+	const object = intersects[0].object
+    if(object.name === 'block'){
+        intersects[0].object.material.color.setHex(0x585859)
+        faceIndex = intersects[0].faceIndex
+    }
+    else if(object.parent.type === 'Group'){
+        let parent = object.parent
+        for(let i = parent.children.length - 1; i >= 0; i--){
+            if(parent.children[i].type === 'Mesh'){
+                parent.children[i].material.color.setHex(0x585859)
+            }
         }
-        object_raycast = intersects[0].object
-        world_point = intersects[0].point
-	}
+    }
+    object_raycast = intersects[0].object
+    world_point = intersects[0].point
 }
 
 export const check_ground = () =>{
