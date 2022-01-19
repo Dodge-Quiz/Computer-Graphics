@@ -29,7 +29,7 @@ const model = ['lemari', 'lemari_kecil', 'meja', 'meja_kecil', 'bangku_kayu', 's
 
 const FPS_Controller = () =>{
     controller = new PointerLockControls(camera, renderer.domElement)
-    document.addEventListener( 'click', function () {
+    document.getElementById("dormicate").addEventListener( 'click', function () {
         controller.lock()
     , false})
 
