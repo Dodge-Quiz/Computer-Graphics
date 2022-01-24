@@ -15,6 +15,7 @@ var player_position = new THREE.Vector3()
 var velocity = new THREE.Vector3()
 var direction = new THREE.Vector3()
 var isMenu = false
+var isGuide = true
 
 let moveForward = false
 let moveBackward = false
@@ -38,6 +39,22 @@ const FPS_Controller = () =>{
     document.addEventListener( 'click', function () {
         add_block()
     , false})
+    document.getElementById('close_btn').addEventListener('click', () =>{
+        isGuide = true
+        Tutorial_Menu()
+    })
+}
+
+const Tutorial_Menu = () =>{
+    const guide = document.getElementById('guide')
+    if(isGuide){
+        guide.style.display = "none"
+        isGuide = false
+    }
+    else{
+        guide.style.display = "block"
+        isGuide = true
+    }
 }
 
 const FPS_Movement = () =>{
@@ -122,6 +139,10 @@ const onKeyDown = ( event ) => {
                 menu.style.display = "block"
                 isMenu = true
             }
+            break
+
+        case 'KeyT':
+            Tutorial_Menu()
             break
 
         case 'Digit1':
